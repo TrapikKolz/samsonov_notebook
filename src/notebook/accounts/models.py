@@ -7,14 +7,14 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def create_user(
-            self, email, password=None, name=None, full_name=None, is_active=True, is_staff=None, is_admin=None
+            self, email, password=None, first_name=None, second_name=None, is_active=True, is_staff=None, is_admin=None
     ):
         if not email:
             raise ValueError("Пользователь должен иметь email")
         if not password:
             raise ValueError("Пользователь должен иметь пароль")
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name, full_name=full_name)
+        user = self.model(email=email, first_name=first_name, second_name=second_name)
         user.password = make_password(password)
         user.staff = is_staff
         user.admin = is_admin
@@ -22,12 +22,16 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email=None, password=None, name=None):
-        user = self.create_user(email, name=name, password=password, is_staff=True, is_admin=True)
+    def create_superuser(self, email=None, password=None, first_name=None, second_name=None):
+        user = self.create_user(
+            email, first_name=first_name, second_name=second_name, password=password, is_staff=True, is_admin=True
+        )
         return user
 
-    def create_staffuser(self, email=None, password=None,  name=None):
-        user = self.create_user(email, name=name, password=password, is_staff=True, is_admin=False)
+    def create_staffuser(self, email=None, password=None,  first_name=None, second_name=None):
+        user = self.create_user(
+            email, first_name=first_name, second_name=second_name, password=password, is_staff=True, is_admin=False
+        )
         return user
 
 
