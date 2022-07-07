@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+
+<h1>{{ title }}</h1><hr>
+
+{% for item in notes %}
+<div>
+    <p>{{ item.title }}</p>
+    <p>{{ item.text }}</p>
+    <p>{{ item.updated|date:'Y-m-d H:i' }}</p><hr>
+</div>
+
+{% endfor %}
+
+</body>
+</html>
