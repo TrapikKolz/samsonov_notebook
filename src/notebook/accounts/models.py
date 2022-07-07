@@ -80,6 +80,6 @@ class User(AbstractBaseUser):
         return self.admin
 
     def save(self, *args, **kwargs):
-        if not self.id and not self.staff and not self.admin:
+        if not self.pk and not self.staff and not self.admin:
             self.password = make_password(self.password)
         super().save(*args, **kwargs)
